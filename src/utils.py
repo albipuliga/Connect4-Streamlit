@@ -51,7 +51,7 @@ class ConnectFour:
         # Fallback strategy: choose the center or the closest available column
         for offset in range(self.columns // 2 + 1):
             for col in [self.columns // 2 + offset, self.columns // 2 - offset]:
-                if col >= 0 and col < self.columns and self.board[0][col] == " ":
+                if 0 <= col < self.columns and self.board[0][col] == " ":
                     return col
 
     def simulate_move(self, col, player):

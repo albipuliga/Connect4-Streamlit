@@ -1,8 +1,7 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
 from utils import ConnectFour
-
 
 if "users_df" not in st.session_state:
     st.session_state.users_df = pd.DataFrame(
@@ -27,19 +26,22 @@ def draw(num_columns, num_rows):
                     acc_row += 1
                     if st.session_state.game.board[acc_row][acc_col] == "X":  # player
                         st.markdown(
-                            f'<div style="width: 50px; height: 50px; background-color: green; border-radius: 50%; margin: 10px;"></div>',
+                            f'<div style="width: 50px; height: 50px; '
+                            f'background-color: green; border-radius: 50%; margin: 10px;"></div>',
                             unsafe_allow_html=True,
                         )
                     elif (
-                        st.session_state.game.board[acc_row][acc_col] == "O"
+                            st.session_state.game.board[acc_row][acc_col] == "O"
                     ):  # machine
                         st.markdown(
-                            f'<div style="width: 50px; height: 50px; background-color: red; border-radius: 50%; margin: 10px;"></div>',
+                            f'<div style="width: 50px; height: 50px; '
+                            f'background-color: red; border-radius: 50%; margin: 10px;"></div>',
                             unsafe_allow_html=True,
                         )
                     else:
                         st.markdown(
-                            f'<div style="width: 50px; height: 50px; background-color: grey; border-radius: 50%; margin: 10px;"></div>',
+                            f'<div style="width: 50px; height: 50px; '
+                            f'background-color: grey; border-radius: 50%; margin: 10px;"></div>',
                             unsafe_allow_html=True,
                         )
 
@@ -63,8 +65,8 @@ def player_moves(game, col, player="X"):
 
 def main_loop():
     st.title("Connect 4")
-    COLUMNS = 7
-    ROWS = 6
+    columns = 7
+    rows = 6
 
     # Initialize the game board and game_over flag
     if "game" not in st.session_state:
@@ -107,7 +109,7 @@ def main_loop():
             machine_moves(st.session_state.game)
 
     # Player input
-    col = st.number_input("Choose a column (0-6):", 0, COLUMNS - 1, format="%d")
+    col = st.number_input("Choose a column (0-6):", 0, columns - 1, format="%d")
 
     response_container = st.container()
     with response_container:
@@ -120,10 +122,10 @@ def main_loop():
                 player_moves(st.session_state.game, col)
                 user_index = st.session_state.users_df[
                     st.session_state.users_df["Username"] == username
-                ].index[0]
+                    ].index[0]
                 # Check if player won
                 if st.session_state.game.check_winner("X"):
-                    draw(COLUMNS, ROWS)
+                    draw(columns, rows)
                     st.success(f"{username} won!")
                     st.session_state.users_df.at[user_index, "Wins"] += 1
                     st.session_state.game_over = True
@@ -135,7 +137,7 @@ def main_loop():
                     if st.session_state.game.check_winner("O"):
                         st.error("You lost!")
                         st.session_state.users_df.at[user_index, "Losses"] += 1
-                        draw(COLUMNS, ROWS)
+                        draw(columns, rows)
                         st.session_state.game_over = True
                         return None
 
@@ -146,7 +148,7 @@ def main_loop():
                     else float("inf")
                 )
 
-        draw(COLUMNS, ROWS)
+        draw(columns, rows)
 
 
 main_loop()

@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 
 def leaderboard(users):
@@ -11,5 +10,6 @@ def leaderboard(users):
     ]
     styled_table = users.style.set_table_styles(styles)
     st.write(styled_table)
-    
+
+
 leaderboard(st.session_state.users_df)
