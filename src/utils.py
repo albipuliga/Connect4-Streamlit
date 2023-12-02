@@ -15,11 +15,6 @@ class ConnectFour:
                 return True
         return False
 
-    def print_board(self):
-        for row in self.board:
-            print("|" + "|".join(row) + "|")
-        print("+".join(["---" for _ in range(self.columns)]))
-
     def check_winner(self, player):
         # Check horizontal, vertical, and diagonal for a win
         for row in range(self.rows):
@@ -43,9 +38,6 @@ class ConnectFour:
                     return True
 
         return False
-
-    def is_full(self):
-        return all(self.board[0][col] != " " for col in range(self.columns))
 
     def greedy_move(self):
         for col in range(self.columns):
