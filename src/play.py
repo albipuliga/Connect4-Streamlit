@@ -56,8 +56,8 @@ def player_moves(game, col, player="X"):
 
 
 st.title("Connect 4")
-num_columns = 7
-num_rows = 6
+COLUMNS = 7
+ROWS = 6
 
 
 # Initialize the game board and game_over flag
@@ -66,8 +66,11 @@ if "game" not in st.session_state:
     st.session_state.game_over = False
 
 # Player usernames
-player1_username = st.text_input("Enter username:")
-
+username = st.text_input("Enter username:")
+# if username == "":
+#     st.warning("Please enter a username.")
+#     st.stop()
+    
 # Choose who starts
 st.session_state.selected_option = st.selectbox("Who starts?", ["Machine", "User"])
 
@@ -80,7 +83,7 @@ if st.button("Reset"):
         machine_moves(st.session_state.game)
 
 # Player input
-col = st.number_input("Choose a column (0-6):", 0, num_columns - 1, format="%d")
+col = st.number_input("Choose a column (0-6):", 0, COLUMNS - 1, format="%d")
 
 response_container = st.container()
 with response_container:
@@ -93,8 +96,8 @@ with response_container:
             player_moves(st.session_state.game, col)
             # Check if player won
             if st.session_state.game.check_winner("X"):
-                draw(num_columns, num_rows)
-                st.success(f"{player1_username} won!")
+                draw(COLUMNS, ROWS)
+                st.success(f"{username} won!")
                 st.session_state.game_over = True
                 st.stop()
 
@@ -103,8 +106,8 @@ with response_container:
                 # Check if machine won
                 if st.session_state.game.check_winner("O"):
                     st.error("You lost!")
-                    draw(num_columns, num_rows)
+                    draw(COLUMNS, ROWS)
                     st.session_state.game_over = True
                     st.stop()
 
-    draw(num_columns, num_rows)
+    draw(COLUMNS, ROWS)
