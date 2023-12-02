@@ -65,8 +65,12 @@ if "game" not in st.session_state:
     st.session_state.game = ConnectFour()
     st.session_state.game_over = False
 
+# Player usernames
+player1_username = st.text_input("Enter username:")
+
 # Choose who starts
 st.session_state.selected_option = st.selectbox("Who starts?", ["Machine", "User"])
+
 
 # Reset the game
 if st.button("Reset"):
@@ -89,7 +93,7 @@ with response_container:
             # Check if player won
             if st.session_state.game.check_winner("X"):
                 draw(num_columns, num_rows)
-                st.success("You won!")
+                st.success(f"{player1_username} won!")
                 st.session_state.game_over = True
                 st.stop()
 
@@ -98,7 +102,6 @@ with response_container:
                 # Check if machine won
                 if st.session_state.game.check_winner("O"):
                     draw(num_columns, num_rows)
-                    st.error("You lost!")
                     st.session_state.game_over = True
                     st.stop()
 
