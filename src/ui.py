@@ -76,6 +76,7 @@ st.session_state.selected_option = st.selectbox("Who starts?", ["Machine", "User
 if st.button("Reset"):
     st.session_state.game = ConnectFour()
     if st.session_state.selected_option == "Machine":
+        st.session_state.game_over = False
         machine_moves(st.session_state.game)
 
 # Player input
@@ -101,6 +102,7 @@ with response_container:
                 machine_moves(st.session_state.game)
                 # Check if machine won
                 if st.session_state.game.check_winner("O"):
+                    st.error("You lost!")
                     draw(num_columns, num_rows)
                     st.session_state.game_over = True
                     st.stop()
