@@ -8,7 +8,6 @@ if "users_df" not in st.session_state:
         columns=["Username", "Wins", "Losses", "Win/Loss Ratio"]
     )
 
-
 # Function to draw the board
 def draw(num_columns, num_rows):
     st.title("Board")
@@ -46,9 +45,14 @@ def draw(num_columns, num_rows):
                         )
 
 
-# Function for machine moves
-def machine_moves(game, player="O"):
-    col = game.greedy_move()
+def machine_moves(game, player="O", move_type="greedy"):
+    if move_type == "greedy":
+        col = game.greedy_move()
+    elif move_type == "minimax":
+        col = game.minimax_move()
+    else:
+        raise ValueError("Invalid move type. Choose 'greedy' or 'minimax'.")
+
     game.insert_disc(col, player)
 
 
@@ -79,11 +83,6 @@ def main_loop():
         st.warning("Please enter a username.")
         st.stop()
 
-    # # Ensure the username is unique
-    # if username in st.session_state.users_df["Username"].values:
-    #     st.error("Username already exists. Please choose a different one.")
-    #     st.stop()
-
     # Check if the user already exists in the DataFrame
     if username not in st.session_state.users_df["Username"].values:
         # Add a new row for the user
@@ -101,12 +100,15 @@ def main_loop():
     # Choose who starts
     st.session_state.selected_option = st.selectbox("Who starts?", ["Machine", "User"])
 
+    # Choose AI move type
+    move_type = st.radio("Select AI Move Type", ["Greedy", "Minimax"])
+
     # Reset the game
     if st.button("Reset"):
         st.session_state.game = ConnectFour()
         if st.session_state.selected_option == "Machine":
             st.session_state.game_over = False
-            machine_moves(st.session_state.game)
+            machine_moves(st.session_state.game, move_type=move_type.lower())
 
     # Player input
     col = st.number_input("Choose a column (0-6):", 0, columns - 1, format="%d")
@@ -132,7 +134,8 @@ def main_loop():
                     return username
 
                 if not st.session_state.game_over:
-                    machine_moves(st.session_state.game)
+                    machine_moves(st.session_state.game, move_type=move_type.lower())
+
                     # Check if machine won
                     if st.session_state.game.check_winner("O"):
                         st.error("You lost!")
@@ -152,3 +155,4 @@ def main_loop():
 
 
 main_loop()
+
