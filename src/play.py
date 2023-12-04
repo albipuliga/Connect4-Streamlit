@@ -103,11 +103,11 @@ def main_loop():
     # Choose AI move type
     move_type = st.radio("Select AI Move Type", ["Greedy", "Minimax"])
 
-    # Reset the game
+    # # Reset the game
     if st.button("Reset"):
         st.session_state.game = ConnectFour()
+        st.session_state.game_over = False
         if st.session_state.selected_option == "Machine":
-            st.session_state.game_over = False
             machine_moves(st.session_state.game, move_type=move_type.lower())
 
     # Player input
