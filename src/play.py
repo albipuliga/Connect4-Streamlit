@@ -8,8 +8,21 @@ if "users_df" not in st.session_state:
         columns=["Username", "Wins", "Losses", "Win/Loss Ratio"]
     )
 
+
 # Function to draw the board
 def draw(num_columns, num_rows):
+    """
+    Draws the game board with circles representing the player and machine moves.
+
+    Args:
+        num_columns (int): The number of columns in the game board.
+        num_rows (int): The number of rows in the game board.
+        
+    Returns:
+        None
+
+    O(n*m) time complexity, where n is the number of columns and m is the number of rows.
+    """
     st.title("Board")
     columns = st.columns(num_columns)
     acc_col = -1
@@ -30,7 +43,7 @@ def draw(num_columns, num_rows):
                             unsafe_allow_html=True,
                         )
                     elif (
-                            st.session_state.game.board[acc_row][acc_col] == "O"
+                        st.session_state.game.board[acc_row][acc_col] == "O"
                     ):  # machine
                         st.markdown(
                             f'<div style="width: 50px; height: 50px; '
@@ -46,6 +59,22 @@ def draw(num_columns, num_rows):
 
 
 def machine_moves(game, player="O", move_type="greedy"):
+    """
+    Makes a move for the machine player in the game.
+
+    Args:
+        game (Game): The game object representing the current state of the game.
+        player (str): The player symbol for the machine player. Default is "O".
+        move_type (str): The type of move to be made. Valid options are "greedy" and "minimax". Default is "greedy".
+
+    Raises:
+        ValueError: If an invalid move type is provided.
+
+    Returns:
+        None
+
+    O(b^m) time complexity for minimax (worst case), where b is the branching factor and m is the maximum depth of the tree.
+    """
     if move_type == "greedy":
         col = game.greedy_move()
     elif move_type == "minimax":
@@ -58,16 +87,51 @@ def machine_moves(game, player="O", move_type="greedy"):
 
 # Function to check if a column is full
 def is_col_full(board, col):
+    """
+    Checks if the specified column is full.
+
+    Args:
+        col (int): The column index.
+
+    Returns:
+        bool: True if the column is full, False otherwise.
+
+    O(1) time complexity
+    """
     return board[0][col] != " "
 
 
 # Function to process player moves
 def player_moves(game, col, player="X"):
+    """
+    Insert a disc for the specified player in the given column of the game board.
+
+    Args:
+        game (Game): The game object representing the current state of the game.
+        col (int): The column number where the disc should be inserted.
+        player (str, optional): The player symbol. Defaults to "X".
+        
+    Returns:
+        None
+    
+    O(1) time complexity
+    """
     if not is_col_full(game.board, col):
         game.insert_disc(col, player)
 
 
 def main_loop():
+    """
+    Main loop for the Connect 4 game.
+
+    This function handles the gameplay logic, including initializing the game board,
+    getting player usernames, checking if the user already exists in the DataFrame,
+    choosing who starts, selecting AI move type, resetting the game, getting player input,
+    checking for a winner, updating the user's win/loss ratio, and drawing the game board.
+
+    Returns:
+        str: The username of the winning player, or None if there is no winner.
+    """
     st.title("Connect 4")
     columns = 7
     rows = 6
@@ -124,7 +188,7 @@ def main_loop():
                 player_moves(st.session_state.game, col)
                 user_index = st.session_state.users_df[
                     st.session_state.users_df["Username"] == username
-                    ].index[0]
+                ].index[0]
                 # Check if player won
                 if st.session_state.game.check_winner("X"):
                     draw(columns, rows)
@@ -155,4 +219,3 @@ def main_loop():
 
 
 main_loop()
-
