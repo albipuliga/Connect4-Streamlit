@@ -1,30 +1,26 @@
-# utils.py
-import random
-
-
 class ConnectFour:
     """
     ConnectFour class represents the Connect Four game.
 
     Attributes:
-        rows (int): The number of rows in the game board.
-        columns (int): The number of columns in the game board.
-        board (list): The game board represented as a 2D list.
-        turn (str): The current player's turn ("X" or "O").
-        depth (int): The depth for the minimax algorithm.
+        - rows (int): The number of rows in the game board.
+        - columns (int): The number of columns in the game board.
+        - board (list): The game board represented as a 2D list.
+        - turn (str): The current player's turn ("X" or "O").
+        - depth (int): The depth for the minimax algorithm.
 
     Methods:
-        insert_disc(column, player): Inserts a disc into the specified column for the given player.
-        check_winner(player): Checks if the given player has won the game.
-        greedy_move(): Determines the best move using a greedy strategy.
-        minimax_move(): Determines the best move using the minimax algorithm.
-        minimax(depth, maximizing_player): Performs the minimax algorithm to evaluate the game board.
-        get_next_open_row(col): Returns the next open row in the specified column.
-        is_col_full(col): Checks if the specified column is full.
-        is_board_full(): Checks if the game board is full.
-        evaluate_board(board): Evaluates the game board and returns a score.
-        score_position(position): Scores a position based on the number of "O" and "X" in it.
-        simulate_move(col, player): Simulates a move by inserting a disc into the specified column for the given player.
+        - insert_disc(column, player): Inserts a disc into the specified column for the given player.
+        - check_winner(player): Checks if the given player has won the game.
+        - greedy_move(): Determines the best move using a greedy strategy.
+        - minimax_move(): Determines the best move using the minimax algorithm.
+        - minimax(depth, maximizing_player): Performs the minimax algorithm to evaluate the game board.
+        - get_next_open_row(col): Returns the next open row in the specified column.
+        - is_col_full(col): Checks if the specified column is full.
+        - is_board_full(): Checks if the game board is full.
+        - evaluate_board(board): Evaluates the game board and returns a score.
+        - score_position(position): Scores a position based on the number of "O" and "X" in it.
+        - simulate_move(col, player): Simulates a move by inserting a disc into the specified column for the given player.
     """
 
     def __init__(self):
@@ -39,11 +35,11 @@ class ConnectFour:
         Inserts a disc into the specified column for the given player.
 
         Args:
-            column (int): The column to insert the disc into.
-            player (str): The player ("X" or "O") who is inserting the disc.
+            - column (int): The column to insert the disc into.
+            - player (str): The player ("X" or "O") who is inserting the disc.
 
         Returns:
-            bool: True if the disc was successfully inserted, False otherwise.
+            - bool: True if the disc was successfully inserted, False otherwise.
 
         O(n) time complexity
         """
@@ -61,10 +57,10 @@ class ConnectFour:
         Checks for a win condition in four different ways, corresponding to horizontal, vertical, and two diagonal directions.
 
         Args:
-            player (str): The player ("X" or "O") to check for a win.
+            - player (str): The player ("X" or "O") to check for a win.
 
         Returns:
-            bool: True if the player has won, False otherwise.
+            - bool: True if the player has won, False otherwise.
 
         O(n^2) time complexity
         """
@@ -96,7 +92,7 @@ class ConnectFour:
         Determines the best move using a greedy strategy.
 
         Returns:
-            int: The column index of the best move.
+            - int: The column index of the best move.
 
         O(n^2) time complexity
         """
@@ -121,7 +117,7 @@ class ConnectFour:
         Determines the best move using the minimax algorithm.
 
         Returns:
-            int: The column index of the best move.
+            - int: The column index of the best move.
 
         O(n) time complexity
         """
@@ -146,11 +142,11 @@ class ConnectFour:
         Performs the minimax algorithm to evaluate the game board.
 
         Args:
-            depth (int): The current depth of the algorithm.
-            maximizing_player (bool): True if the current player is maximizing, False otherwise.
+            - depth (int): The current depth of the algorithm.
+            - maximizing_player (bool): True if the current player is maximizing, False otherwise.
 
         Returns:
-            int: The score of the evaluated game board.
+            - int: The score of the evaluated game board.
 
         O(b^m) time complexity, where b is the branching factor and m is the maximum depth of the search tree; in this case, b = 7 and m = 3
         """
@@ -188,10 +184,10 @@ class ConnectFour:
         Returns the next open row in the specified column.
 
         Args:
-            col (int): The column index.
+            - col (int): The column index.
 
         Returns:
-            int: The row index of the next open row.
+            - int: The row index of the next open row.
 
         O(n) time complexity
         """
@@ -205,10 +201,10 @@ class ConnectFour:
         Checks if the specified column is full.
 
         Args:
-            col (int): The column index.
+            - col (int): The column index.
 
         Returns:
-            bool: True if the column is full, False otherwise.
+            - bool: True if the column is full, False otherwise.
 
         O(1) time complexity
         """
@@ -219,7 +215,7 @@ class ConnectFour:
         Checks if the game board is full.
 
         Returns:
-            bool: True if the game board is full, False otherwise.
+            - bool: True if the game board is full, False otherwise.
 
         O(n^2) time complexity
         """
@@ -230,10 +226,10 @@ class ConnectFour:
         Evaluates the game board and returns a score.
 
         Args:
-            board (list): The game board represented as a 2D list.
+            - board (list): The game board represented as a 2D list.
 
         Returns:
-            int: The score of the game board.
+            - int: The score of the game board.
 
         O(n^2) time complexity (same as check_winner)
         """
@@ -276,10 +272,10 @@ class ConnectFour:
         Scores a position based on the number of "O" and "X" in it.
 
         Args:
-            position (list): The position to score.
+            - position (list): The position to score.
 
         Returns:
-            int: The score of the position.
+            - int: The score of the position.
 
         O(1) time complexity
         """
@@ -307,11 +303,11 @@ class ConnectFour:
         Simulates a move by inserting a disc into the specified column for the given player.
 
         Args:
-            col (int): The column index.
-            player (str): The player ("X" or "O") who is simulating the move.
+            - col (int): The column index.
+            - player (str): The player ("X" or "O") who is simulating the move.
 
         Returns:
-            bool: True if the move results in a win, False otherwise.
+            - bool: True if the move results in a win, False otherwise.
 
         O(n) time complexity
         """

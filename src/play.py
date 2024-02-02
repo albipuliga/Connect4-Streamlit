@@ -15,11 +15,11 @@ def draw(num_columns, num_rows):
     Draws the game board with circles representing the player and machine moves.
 
     Args:
-        num_columns (int): The number of columns in the game board.
-        num_rows (int): The number of rows in the game board.
+        - num_columns (int): The number of columns in the game board.
+        - num_rows (int): The number of rows in the game board.
         
-    Returns:
-        None
+    Returns: 
+        - None
 
     O(n*m) time complexity, where n is the number of columns and m is the number of rows.
     """
@@ -63,15 +63,15 @@ def machine_moves(game, player="O", move_type="greedy"):
     Makes a move for the machine player in the game.
 
     Args:
-        game (Game): The game object representing the current state of the game.
-        player (str): The player symbol for the machine player. Default is "O".
-        move_type (str): The type of move to be made. Valid options are "greedy" and "minimax". Default is "greedy".
+        - game (Game): The game object representing the current state of the game.
+        - player (str): The player symbol for the machine player. Default is "O".
+        - move_type (str): The type of move to be made. Valid options are "greedy" and "minimax". Default is "greedy".
 
     Raises:
-        ValueError: If an invalid move type is provided.
+        - ValueError: If an invalid move type is provided.
 
     Returns:
-        None
+        - None
 
     O(b^m) time complexity for minimax (worst case), where b is the branching factor and m is the maximum depth of the tree.
     """
@@ -91,10 +91,10 @@ def is_col_full(board, col):
     Checks if the specified column is full.
 
     Args:
-        col (int): The column index.
+        - col (int): The column index.
 
     Returns:
-        bool: True if the column is full, False otherwise.
+        - bool: True if the column is full, False otherwise.
 
     O(1) time complexity
     """
@@ -107,12 +107,12 @@ def player_moves(game, col, player="X"):
     Insert a disc for the specified player in the given column of the game board.
 
     Args:
-        game (Game): The game object representing the current state of the game.
-        col (int): The column number where the disc should be inserted.
-        player (str, optional): The player symbol. Defaults to "X".
+        - game (Game): The game object representing the current state of the game.
+        - col (int): The column number where the disc should be inserted.
+        - player (str, optional): The player symbol. Defaults to "X".
         
     Returns:
-        None
+        - None
     
     O(1) time complexity
     """
@@ -130,7 +130,7 @@ def main_loop():
     checking for a winner, updating the user's win/loss ratio, and drawing the game board.
 
     Returns:
-        str: The username of the winning player, or None if there is no winner.
+        - str: The username of the winning player, or None if there is no winner.
     """
     st.title("Connect 4")
     columns = 7
