@@ -1,6 +1,6 @@
 # Connect4 Game
 
-This is a simple implementation of the classic Connect4 game using Python and Streamlit.
+This is a simple implementation of the classic Connect4 game using Python and Streamlit with a **Minimax** algorithm.
 
 ## Project Structure
 
